@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\Pages\EditProduct;
+use App\Filament\Resources\ProductResource\Pages\ProductImages;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use App\ProductStatusEnum;
@@ -11,6 +13,8 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
+use Filament\Pages\SubNavigationPosition;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -26,6 +30,8 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static SubNavigationPosition $subNavigationPosition = SubNavigationPosition::End;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -34,8 +40,8 @@ class ProductResource extends Resource
                     ->live(onBlur: true)
                     ->required()
                     ->afterStateUpdated(function (string $operation, $state, callable $set) {
-                    $set('slug', Str::slug($state));
-                }),
+                        $set('slug', Str::slug($state));
+                    }),
                 TextInput::make('slug')
                     ->required(),
                 Select::make('department_id')
@@ -45,14 +51,14 @@ class ProductResource extends Resource
                     ->searchable()
                     ->required()
                     ->reactive() // Makes the field reactive to changes
-                    ->afterStateUpdated(function(callable $set) {
+                    ->afterStateUpdated(function (callable $set) {
                         $set('category_id', null); // Reset category when department changes
                     }),
                 Select::make('category_id')
                     ->relationship(
                         name: 'category',
                         titleAttribute: 'name',
-                        modifyQueryUsing: function(Builder $query, callable $get) {
+                        modifyQueryUsing: function (Builder $query, callable $get) {
                             $departmentId = $get('department_id');
                             if ($departmentId) {
                                 $query->where('department_id', $departmentId);
@@ -64,7 +70,7 @@ class ProductResource extends Resource
                     ->searchable()
                     ->required(),
                 RichEditor::make('description')
-                        ->toolbarButtons([
+                    ->toolbarButtons([
                         'blockquote',
                         'bold',
                         'bulletList',
@@ -78,7 +84,7 @@ class ProductResource extends Resource
                         'underline',
                         'undo',
                         'table',
-                        ])
+                    ])
                     ->columnSpan(2)
                     ->required(),
                 TextInput::make('price')
@@ -140,6 +146,15 @@ class ProductResource extends Resource
             'index' => Pages\ListProducts::route('/'),
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'images' => Pages\ProductImages::route('/{record}/images')
         ];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+                EditProduct::class,
+                ProductImages::class
+            ]);
     }
 }
