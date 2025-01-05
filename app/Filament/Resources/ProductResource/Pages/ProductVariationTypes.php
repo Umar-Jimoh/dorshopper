@@ -18,10 +18,13 @@ class ProductVariationTypes extends EditRecord
 
     protected static ?string $navigationIcon = 'heroicon-m-numbered-list';
 
+    protected static ?string $title = 'Variable Types';
+
     public function form(Form $form): Form {
         return $form  
             ->schema([
                 Repeater::make('variationTypes')
+                    ->label(false)
                     ->relationship()
                     ->collapsible()
                     ->defaultItems(1)

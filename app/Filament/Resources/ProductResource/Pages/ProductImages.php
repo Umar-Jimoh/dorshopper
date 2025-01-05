@@ -14,10 +14,13 @@ class ProductImages extends EditRecord
 
     protected static ?string $navigationIcon = 'heroicon-c-photo';
 
+    protected static ?string $title = 'Images';
+
     public function form(Form $form): Form {
         return $form  
             ->schema([
                 SpatieMediaLibraryFileUpload::make('images')
+                    ->label(false)
                     ->image()
                     ->multiple()
                     ->openable()
