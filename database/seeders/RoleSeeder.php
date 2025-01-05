@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\PermissionsEnum;
-use App\RolesEnum;
+use App\Enums\PermissionsEnum;
+use App\Enums\RolesEnum;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;

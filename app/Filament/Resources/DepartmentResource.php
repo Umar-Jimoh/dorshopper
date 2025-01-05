@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
-use App\RolesEnum;
+use App\Enums\RolesEnum;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;

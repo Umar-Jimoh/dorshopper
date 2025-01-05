@@ -8,7 +8,7 @@ use App\Filament\Resources\ProductResource\Pages\ProductImages;
 use App\Filament\Resources\ProductResource\Pages\ProductVariationTypes;
 use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
-use App\ProductStatusEnum;
+use App\Enums\ProductStatusEnum;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
