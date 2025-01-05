@@ -18,7 +18,7 @@ class ProductVariationTypes extends EditRecord
 
     protected static ?string $navigationIcon = 'heroicon-m-numbered-list';
 
-    protected static ?string $title = 'Variable Types';
+    protected static ?string $title = 'Variation Types';
 
     public function form(Form $form): Form {
         return $form  
