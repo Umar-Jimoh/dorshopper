@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -21,6 +22,13 @@ class Product extends Model implements HasMedia
             ->width(480);
         $this->addMediaConversion('large')
             ->width(1200);
+    }
+
+    public function scopeForVendor(Builder $query): Builder 
+    {
+        /** @var Guard $auth  */
+        $auth = auth();
+        return $query->where('created_by', $auth->user()->id);
     }
 
     public function department(): BelongsTo
