@@ -25,16 +25,21 @@ class Product extends Model implements HasMedia
             ->width(1200);
     }
 
-    public function scopeForVendor(Builder $query): Builder 
+    public function scopeForVendor(Builder $query): Builder
     {
         /** @var Guard $auth  */
         $auth = auth();
         return $query->where('created_by', $auth->user()->id);
     }
 
-    public function scopePublished(Builder $query): Builder 
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('status', ProductStatusEnum::Published);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 
     public function department(): BelongsTo

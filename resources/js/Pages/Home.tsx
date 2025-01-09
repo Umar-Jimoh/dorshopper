@@ -1,16 +1,16 @@
+import ProductItem from '@/Components/app/ProductItem';
 import Authenticated from '@/Layouts/AuthenticatedLayout';
-import { PageProps } from '@/types';
+import { PageProps, paginationProps, Product } from '@/types';
 
-export default function Welcome({
-    auth,
-    laravelVersion,
-    phpVersion,
-}: PageProps<{ laravelVersion: string; phpVersion: string }>) {
+export default function Home({
+products
+}: PageProps<{ products: paginationProps<Product> }>) {
 
+    console.log(products)
     return (
         <>
        <Authenticated>
-       <div className="hero bg-base-200 min-h-screen">
+       <div className="hero bg-base-200 min-h-[300px]">
           <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Hello there</h1>
@@ -21,6 +21,13 @@ export default function Welcome({
             <button className="btn btn-primary">Get Started</button>
           </div>
           </div>
+        </div>
+
+        <div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 p--8'>
+          
+            {products.data.map(product => (
+              <ProductItem  product={product} key={product.id}/>
+            ))}
         </div>
         </Authenticated>
         </>
