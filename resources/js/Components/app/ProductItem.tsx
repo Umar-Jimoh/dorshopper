@@ -1,5 +1,6 @@
 import { Product } from '@/types'
 import { Link } from '@inertiajs/react'
+import CurrencyFormatter from '../core/CurrencyFormatter'
 
 function ProductItem({product} : {product: Product}) {
 
@@ -19,7 +20,7 @@ function ProductItem({product} : {product: Product}) {
             <div className='card-actions items-center justify-between mt-3'>
                 <button className='btn btn-primary'>Add to Cart</button>
                 <span className='text-2xl'>
-                    {product.price}
+                    <CurrencyFormatter amount={product.price} />
                 </span>
             </div>
         </div>
